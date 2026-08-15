@@ -1,12 +1,16 @@
 1) create a new repo on github
 
-meta-openembedded-core
+meta-yocto
+
+1.1) clone locally
+
+git clone git@github.com:RobertBerger/meta-yocto.git
 
 2) add my-scripts dir
 
-cd meta-openembedded-core
+cd meta-yocto
 
-echo "# meta-openembedded-core fork" >> README.md
+echo "# meta-yocto fork" >> README.md
 
 git init
 
@@ -14,26 +18,45 @@ git add .
 
 git commit -m "first commit"
 
-git remote add origin git@github.com:RobertBerger/meta-phytec.git
+git remote add origin git@github.com:RobertBerger/meta-yocto.git
 
 git push -u origin master
 
 3) use my repo
 
-mv meta-openembedded-core meta-openembedded-core.ori
-git clone git@github.com:RobertBerger/meta-openembedded-core.git
+mv meta-yocto meta-yocto.ori
+git clone git@github.com:RobertBerger/meta-yocto.git
 
 4) add upstream
 
-cd meta-openembedded-core
+cd meta-yocto
 
-git remote add official-upstream https://github.com/openembedded/openembedded-core.git
+git remote add official-upstream https://git.yoctoproject.org/meta-yocto
 
 $ git fetch official-upstream
 
-git branch -a
+$ git branch -a
 * master
-  remotes/official-upstream/2011-1
+  remotes/official-upstream/bernard
+  remotes/official-upstream/contrib/abelloni/master-next
+  remotes/official-upstream/contrib/abelloni/master-next-success
+  remotes/official-upstream/contrib/agodard/master-next
+  remotes/official-upstream/contrib/agodard/master-next-success
+  remotes/official-upstream/contrib/dunfell-next
+  remotes/official-upstream/contrib/hardknott-next
+  remotes/official-upstream/contrib/honister-next
+  remotes/official-upstream/contrib/kirkstone-next
+  remotes/official-upstream/contrib/langdale-next
+  remotes/official-upstream/contrib/lucaceresoli/master-next
+  remotes/official-upstream/contrib/lucaceresoli/master-next-success
+  remotes/official-upstream/contrib/mathieu/master-next
+  remotes/official-upstream/contrib/mathieu/master-next-success
+  remotes/official-upstream/contrib/mathieu/test
+  remotes/official-upstream/contrib/mickledore-next
+  remotes/official-upstream/contrib/nanbield-next
+  remotes/official-upstream/contrib/scarthgap-next
+  remotes/official-upstream/contrib/styhead-next
+  remotes/official-upstream/contrib/walnascar-next
   remotes/official-upstream/daisy
   remotes/official-upstream/danny
   remotes/official-upstream/denzil
@@ -41,6 +64,7 @@ git branch -a
   remotes/official-upstream/dora
   remotes/official-upstream/dunfell
   remotes/official-upstream/dylan
+  remotes/official-upstream/edison
   remotes/official-upstream/fido
   remotes/official-upstream/gatesgarth
   remotes/official-upstream/hardknott
@@ -51,67 +75,67 @@ git branch -a
   remotes/official-upstream/langdale
   remotes/official-upstream/master
   remotes/official-upstream/master-next
+  remotes/official-upstream/master-next2
   remotes/official-upstream/mickledore
-  remotes/official-upstream/morty
-  remotes/official-upstream/nanbield
-  remotes/official-upstream/pyro
-  remotes/official-upstream/rocko
-  remotes/official-upstream/rocko-next
-  remotes/official-upstream/scarthgap
-  remotes/official-upstream/styhead
-  remotes/official-upstream/sumo
-  remotes/official-upstream/thud
-  remotes/official-upstream/walnascar
-  remotes/official-upstream/walnascar-next
-  remotes/official-upstream/warrior
-  remotes/official-upstream/whinlatter
-  remotes/official-upstream/wrynose
-  remotes/official-upstream/zeus
-  remotes/origin/HEAD -> origin/master
-  remotes/origin/master
+
 ...
 
 $ git tag -l
-2011-1
-2018-10.4-thud
-2019-04.2-warrior
-2019-04.3-warrior
-2019-04.4-warrior
-2019-10.1-zeus
-2019-10.2-zeus
-2019-10.3-zeus
-2019-10.4-zeus
-2020-04.1-dunfell
-2020-04.2-dunfell
-2020-04.3-dunfell
-2020-04.4-dunfell
-2020-04.5-dunfell
-2020-04.6-dunfell
-2020-10.2
-2020-10.2-gatesgarth
-2020-10.3
-2020-10.3-gatesgarth
-uninative-1.0
-uninative-1.3
-uninative-1.4
-uninative-1.5
-uninative-1.6
-uninative-1.7
-uninative-1.8
-uninative-1.9
-uninative-2.0
-uninative-2.1
-uninative-2.10
+5.3_M3
+6.0_M1
+6.0_M2
+daisy-11.0.0
+danny-8.0
+danny-8.0.1
+danny-8.0.2
+denzil-7.0
+denzil-7.0.0
+denzil-7.0.1
+denzil-7.0.2
+dizzy-12.0.2
+dunfell-23.0.8
+edison-6.0
+edison-6.0.1
+edison-6.0.2
+fido-13.0.0
+hardknott-3.3
+hardknott-3.3.1
+yocto-1.0
+yocto-1.1
+yocto-1.1.1
+yocto-1.1.2
+yocto-1.2
+yocto-1.4
+yocto-1.4.1
+yocto-1.4.2
+yocto-1.4.2.rc1
+yocto-1.4.3
+yocto-1.4.4
+yocto-1.5
+yocto-1.5.1
 
 ...
 
-5) use the master branch on a specific commit and make own branch
+5) use the master branch on a specific commit, apply patches and make own branch
 
 git co official-upstream/master
 
-git co 2bb062e403c7093734de6467c49503a7d8970d9e
+git co a67ae0e83d8aba0c46cb8383808b2d1203fbb414
 
+5.1) create branch
 git branch 2026-08-11-training
+
+5.2) checkout branch
+git co 2026-08-11-training
+
+5.3)
+let's set a tag to mark the last official upstream changes
+git tag meta-yocto-a67ae0e83d8aba0c46cb8383808b2d1203fbb414
+
+5.4) patch/add/commit
+
+
+
 
 #5) use specific upstream branch/commit and make own branch
 #
